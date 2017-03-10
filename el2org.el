@@ -1,4 +1,4 @@
-;;; el2org.el --- Convert emacs-lisp file to org file
+;;; el2org.el --- Convert elisp file to org file
 
 ;; * Header
 ;; Copyright (C) 2017 Feng Shu
@@ -24,8 +24,8 @@
 ;;; Commentary:
 
 ;; * el2org 使用说明                                               :README:
-;; el2org 是一个简单的工具，它可以将 emacs-lisp 文件转换为 org 文件，前提
-;; 是 emacs-lisp 文件的格式要符合一些特定的要求。
+;; el2org 是一个简单的工具，它可以将 elisp 文件转换为 org 文件，前提
+;; 是 elisp 文件的格式要符合一些特定的要求。
 
 ;; ** 安装
 ;; *** 安装 el2org
