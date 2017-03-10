@@ -67,9 +67,10 @@
   "Minor for el2org."
   nil " el2org" 'el2org-mode-map)
 
-(defun el2org-orgify-if-necessary (el-file)
+(defun el2org-orgify-if-necessary (el-file &optional force)
   (let ((org-file (concat (file-name-sans-extension el-file) ".org")))
-    (when (or (not (file-exists-p org-file))
+    (when (or force
+              (not (file-exists-p org-file))
               (file-newer-than-file-p el-file org-file))
       (with-temp-buffer
         (insert-file-contents el-file)
