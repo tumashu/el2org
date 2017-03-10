@@ -139,7 +139,7 @@
   (let* ((el-file (concat (file-name-as-directory directory) el-filename))
          (output-file (concat (file-name-as-directory directory) output-filename))
          (org-file (el2org-orgify-if-necessary el-file)))
-    (when (and (file-exists-p input-file)
+    (when (and (file-exists-p el-file)
                (file-exists-p org-file))
       (with-temp-buffer
         (insert-file-contents org-file)
