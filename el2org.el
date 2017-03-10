@@ -120,6 +120,10 @@
               (setq p2 (pop positions))
               (while (re-search-forward "^;; " p2 t)
                 (replace-match "" nil t)))))
+        ;; Delete Useless "BEGIN/END_SRC"
+        (goto-char (point-min))
+        (while (re-search-forward "^#[+]END_SRC\n#[+]BEGIN_SRC[ ]+emacs-lisp\n" nil t)
+          (replace-match "" nil t))
         ;; Delete ";;;###autoload"
         (goto-char (point-min))
         (while (re-search-forward "^;;;###autoload.*" nil t)
