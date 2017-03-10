@@ -5,6 +5,7 @@
 
 ;; Author: Feng Shu  <tumashu AT 163.com>
 ;; Keywords: convenience
+;; Version: 0.10
 ;; Homepage: https://github.com/tumashu/el2org
 
 ;; This program is free software; you can redistribute it and/or modify
