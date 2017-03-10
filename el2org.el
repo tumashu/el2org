@@ -4,9 +4,9 @@
 ;; Copyright (C) 2017 Feng Shu
 
 ;; Author: Feng Shu  <tumashu AT 163.com>
+;; Homepage: https://github.com/tumashu/el2org
 ;; Keywords: convenience
 ;; Version: 0.10
-;; Homepage: https://github.com/tumashu/el2org
 
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
