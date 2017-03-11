@@ -1,10 +1,10 @@
-- [What is el2org](#orge361888)
-  - [Installation](#org5ed413c)
-  - [Configure](#orgf3803c0)
-  - [Usage](#orgcd7d7ab)
+- [What is el2org](#org70af39d)
+  - [Installation](#orge582c1b)
+  - [Configure](#orgdc3f7cb)
+  - [Usage](#org359d841)
 
 
-<a id="orge361888"></a>
+<a id="org70af39d"></a>
 
 # What is el2org
 
@@ -13,7 +13,7 @@ el2org is a simple tool，which can convert a emacs-lisp file to org file. You c
 Note: el2org.el file may be a good example.
 
 
-<a id="org5ed413c"></a>
+<a id="orge582c1b"></a>
 
 ## Installation
 
@@ -21,10 +21,10 @@ Note: el2org.el file may be a good example.
 2.  M-x package-install RET el2org RET
 3.  M-x package-install RET ox-gfm RET
 
-ox-gfm is needed by \`el2org-generate-readme', if ox-gfm can not be found, ox-md will be used as fallback.
+    ox-gfm is needed by \`el2org-generate-readme', if ox-gfm can not be found, ox-md will be used as fallback.
 
 
-<a id="orgf3803c0"></a>
+<a id="orgdc3f7cb"></a>
 
 ## Configure
 
@@ -32,11 +32,9 @@ ox-gfm is needed by \`el2org-generate-readme', if ox-gfm can not be found, ox-md
     (require 'ox-gfm)
 
 
-<a id="orgcd7d7ab"></a>
+<a id="org359d841"></a>
 
 ## Usage
 
 1.  \`el2org-orgify-if-necessary' can convert an elisp file to org-file.
-2.  \`el2org-generate-readme' can generate README.md from elisp's "Commentary"
-
-section.
+2.  \`el2org-generate-readme' can generate README.md from elisp's "Commentary" section.

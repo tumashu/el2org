@@ -105,7 +105,7 @@
         (indent-region (point-min) (point-max))
         ;; Deal with ";;"
         (goto-char (point-min))
-        (while (re-search-forward "^;;[ ]+" nil t)
+        (while (re-search-forward "^;;[ ]" nil t)
           (replace-match "" nil t))
         ;; Deal with ";;;"
         (goto-char (point-min))
