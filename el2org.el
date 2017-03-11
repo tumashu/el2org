@@ -93,58 +93,31 @@
             (if (> (point) (point-min))
                 (insert ";; #+BEGIN_SRC emacs-lisp\n")
               (setq status nil))))
-        ;; Delete ";;"
-        (let ((positions '()))
-          (goto-char (point-min))
-          (let ((status t))
-            (while status
-              (thing-at-point--end-of-sexp)
-              (push (point) positions)
-              (unless (< (point) (point-max))
-                (setq status nil))))
-          (goto-char (point-max))
-          (let ((status t))
-            (while status
-              (thing-at-point--beginning-of-sexp)
-              (if (> (point) (point-min))
-                  (push (point) positions)
-                (setq status nil))))
-          (push (point-min) positions)
-          (push (point-max) positions)
-          (setq positions (sort positions #'<))
-          (let (p1 p2)
-            (while positions
-              (setq p1 (pop positions))
-              (setq p2 (pop positions))
-              (while (re-search-forward "^;; " p2 t)
-                (replace-match "" nil t)))))
-        ;; Delete Useless "BEGIN/END_SRC"
+        ;; Delete useless "BEGIN_SRC/END_SRC"
         (goto-char (point-min))
-        (while (re-search-forward "^#[+]END_SRC\n#[+]BEGIN_SRC[ ]+emacs-lisp\n" nil t)
+        (while (re-search-forward "^;; #[+]END_SRC\n;; #[+]BEGIN_SRC[ ]+emacs-lisp\n" nil t)
           (replace-match "" nil t))
-        ;; Deal with first line prefix with ";;;"
+        ;; Deal with first line if it prefix with ";;;"
         (goto-char (point-min))
         (while (re-search-forward "^;;;[ ]+" (line-end-position) t)
-          (replace-match "#+TITLE: " nil t))
-        ;; Delete ";;;###autoload"
+          (replace-match ";; #+TITLE: " nil t))
+        ;; Indent the buffer, so ";;" and ";;;" in sexp will not be removed.
+        (indent-region (point-min) (point-max))
+        ;; Deal with ";;"
         (goto-char (point-min))
-        (while (re-search-forward "^;;;###autoload.*" nil t)
+        (while (re-search-forward "^;;[ ]+" nil t)
           (replace-match "" nil t))
-        ;; Delete ";;; Commentary:"
+        ;; Deal with ";;;"
         (goto-char (point-min))
-        (while (re-search-forward "^;;; +Commentary:.*" nil t)
-          (replace-match "" nil t))
-        ;; Delete ";;; Code:"
-        (goto-char (point-min))
-        (while (re-search-forward "^;;; +Code:.*" nil t)
-          (replace-match "" nil t))
+        (while (re-search-forward "^;;;" nil t)
+          (replace-match "# ;;;" nil t))
         (write-file org-file)))
     org-file))
 
-(defun el2org-generate-file (directory el-filename tags backend output-filename)
+(defun el2org-generate-file (directory el-filename tags backend output-filename &optional force)
   (let* ((el-file (concat (file-name-as-directory directory) el-filename))
          (output-file (concat (file-name-as-directory directory) output-filename))
-         (org-file (el2org-orgify-if-necessary el-file)))
+         (org-file (el2org-orgify-if-necessary el-file force)))
     (when (and (file-exists-p el-file)
                (file-exists-p org-file))
       (with-temp-buffer
@@ -173,7 +146,7 @@
            'gfm
          (message "Can't generate README.md with ox-gfm, use ox-md instead!")
          'md)
-       "README.md"))))
+       "README.md" t))))
 
 (provide 'el2org)
 
