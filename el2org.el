@@ -53,6 +53,7 @@
 ;;     section.
 ;; 3. `el2org-generate-html' can generate a html file from current elisp file
 ;;    and browse it.
+;; 4. `el2org-generate-org' can generate a org file from current elisp file.
 
 ;;; Code:
 
@@ -145,6 +146,14 @@
          (html-file (concat (make-temp-file "el2org-") ".html")))
     (el2org-generate-file file nil 'html html-file t)
     (browse-url-default-browser html-file)))
+
+;;;###autoload
+(defun el2org-generate-org ()
+  "Generate org file from current elisp file."
+  (interactive)
+  (let* ((file (buffer-file-name))
+         (org-file (concat (file-name-sans-extension file) ".org")))
+    (el2org-generate-file file nil 'org org-file t t)))
 
 (provide 'el2org)
 

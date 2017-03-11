@@ -1,10 +1,10 @@
-- [What is el2org](#org6260a57)
-  - [Installation](#org2a1efc9)
-  - [Configure](#org3f25817)
-  - [Usage](#orgb0131e7)
+- [What is el2org](#orgba16e1a)
+  - [Installation](#org2227e0c)
+  - [Configure](#orgec79f47)
+  - [Usage](#org3d45256)
 
 
-<a id="org6260a57"></a>
+<a id="orgba16e1a"></a>
 
 # What is el2org
 
@@ -13,7 +13,7 @@ el2org is a simple tool，which can convert a emacs-lisp file to org file. You c
 Note: el2org.el file may be a good example.
 
 
-<a id="org2a1efc9"></a>
+<a id="org2227e0c"></a>
 
 ## Installation
 
@@ -24,7 +24,7 @@ Note: el2org.el file may be a good example.
     ox-gfm is needed by \`el2org-generate-readme', if ox-gfm can not be found, ox-md will be used as fallback.
 
 
-<a id="org3f25817"></a>
+<a id="orgec79f47"></a>
 
 ## Configure
 
@@ -32,10 +32,11 @@ Note: el2org.el file may be a good example.
     (require 'ox-gfm)
 
 
-<a id="orgb0131e7"></a>
+<a id="org3d45256"></a>
 
 ## Usage
 
 1.  \`el2org-generate-file' can convert an elisp file to other file format which org's exporter support.
 2.  \`el2org-generate-readme' can generate README.md from elisp's "Commentary" section.
 3.  \`el2org-generate-html' can generate a html file from current elisp file and browse it.
+4.  \`el2org-generate-org' can generate a org file from current elisp file.
