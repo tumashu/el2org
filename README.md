@@ -1,17 +1,19 @@
-- [What is el2org](#org2e522fb)
-  - [Installation](#org3df4d9d)
-  - [Configure](#org643ddff)
-  - [Usage](#orgdf7464c)
+- [What is el2org](#org3d3550a)
+  - [Installation](#org4627cde)
+  - [Configure](#org1fbae59)
+  - [Usage](#orgee4eb61)
 
 
-<a id="org2e522fb"></a>
+<a id="org3d3550a"></a>
 
 # What is el2org
 
 el2org is a simple tool，which can convert a emacs-lisp file to org file. You can write code and document in a elisp file with its help.
 
+Note: el2org.el file may be a good example.
 
-<a id="org3df4d9d"></a>
+
+<a id="org4627cde"></a>
 
 ## Installation
 
@@ -22,7 +24,7 @@ el2org is a simple tool，which can convert a emacs-lisp file to org file. You c
     ox-gfm is needed by \`el2org-generate-readme', if ox-gfm can not be found, ox-md will be used as fallback.
 
 
-<a id="org643ddff"></a>
+<a id="org1fbae59"></a>
 
 ## Configure
 
@@ -30,7 +32,7 @@ el2org is a simple tool，which can convert a emacs-lisp file to org file. You c
     (require 'ox-gfm)
 
 
-<a id="orgdf7464c"></a>
+<a id="orgee4eb61"></a>
 
 ## Usage
 

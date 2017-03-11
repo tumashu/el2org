@@ -27,6 +27,8 @@
 ;; el2org is a simple tool，which can convert a emacs-lisp file to org file.
 ;; You can write code and document in a elisp file with its help.
 
+;; Note: el2org.el file may be a good example.
+
 ;; ** Installation
 
 ;; 1. Config melpa source, please read: http://melpa.org/#/getting-started
