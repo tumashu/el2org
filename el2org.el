@@ -129,14 +129,15 @@
 (defun el2org-generate-readme ()
   "Generate README.md from current emacs-lisp file."
   (interactive)
-  (el2org-generate-file
-   (buffer-file-name)
-   '("README")
-   (if (featurep 'ox-gfm)
-       'gfm
-     (message "Can't generate README.md with ox-gfm, use ox-md instead!")
-     'md)
-   "README.md" t))
+  (let* ((file (buffer-file-name))
+         (readme-file (concat (file-name-sans-extension file) ".md")))
+    (el2org-generate-file
+     file '("README")
+     (if (featurep 'ox-gfm)
+         'gfm
+       (message "Can't generate README.md with ox-gfm, use ox-md instead!")
+       'md)
+     readme-file t)))
 
 ;;;###autoload
 (defun el2org-generate-html ()
