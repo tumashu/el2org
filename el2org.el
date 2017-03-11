@@ -51,7 +51,7 @@
 
 ;;; Code:
 
-;; * 代码                                                                 :code:
+;; * el2org's code                                                        :code:
 (require 'lisp-mode)
 (require 'thingatpt)
 (require 'org)
@@ -170,5 +170,7 @@
        "README.md"))))
 
 (provide 'el2org)
+
+;; * Footer
 
 ;;; el2org.el ends here
