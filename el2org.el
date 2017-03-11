@@ -73,9 +73,11 @@
   nil " el2org" 'el2org-mode-map)
 
 (defun el2org-generate-file (el-file tags backend output-file &optional force with-tags)
-  (when (or force
-            (not (file-exists-p output-file))
-            (file-newer-than-file-p el-file output-file))
+  (when (and (string-match-p "\\.el$" el-file)
+             (file-exists-p el-file)
+             (or force
+                 (not (file-exists-p output-file))
+                 (file-newer-than-file-p el-file output-file)))
     (with-temp-buffer
       (insert-file-contents el-file)
       (emacs-lisp-mode)
@@ -119,22 +121,21 @@
             (org-export-with-tags with-tags)
             (indent-tabs-mode nil)
             (tab-width 4))
-        (org-export-to-file backend output-file)))))
+        (org-export-to-file backend output-file))
+      output-file)))
 
 ;;;###autoload
 (defun el2org-generate-readme ()
   "Generate README.md from current emacs-lisp file."
   (interactive)
-  (let* ((file (buffer-file-name)))
-    (when (and (string-match-p "\\.el$" file)
-               (file-exists-p file))
-      (el2org-generate-file
-       file '("README")
-       (if (featurep 'ox-gfm)
-           'gfm
-         (message "Can't generate README.md with ox-gfm, use ox-md instead!")
-         'md)
-       "README.md" t))))
+  (el2org-generate-file
+   (buffer-file-name)
+   '("README")
+   (if (featurep 'ox-gfm)
+       'gfm
+     (message "Can't generate README.md with ox-gfm, use ox-md instead!")
+     'md)
+   "README.md" t))
 
 ;;;###autoload
 (defun el2org-generate-html ()
@@ -142,10 +143,8 @@
   (interactive)
   (let* ((file (buffer-file-name))
          (html-file (concat (make-temp-file "el2org-") ".html")))
-    (when (and (string-match-p "\\.el$" file)
-               (file-exists-p file))
-      (el2org-generate-file file nil 'html html-file t)
-      (browse-url-default-browser html-file))))
+    (el2org-generate-file file nil 'html html-file t)
+    (browse-url-default-browser html-file)))
 
 (provide 'el2org)
 
