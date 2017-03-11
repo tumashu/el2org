@@ -141,7 +141,7 @@
   "Generate html file from current elisp file and browse it."
   (interactive)
   (let* ((file (buffer-file-name))
-         (html-file (concat (file-name-sans-extension file) ".html")))
+         (html-file (concat (make-temp-file "el2org-") ".html")))
     (when (and (string-match-p "\\.el$" file)
                (file-exists-p file))
       (el2org-generate-file file nil 'html html-file t)
