@@ -114,10 +114,8 @@
         (write-file org-file)))
     org-file))
 
-(defun el2org-generate-file (directory el-filename tags backend output-filename &optional force)
-  (let* ((el-file (concat (file-name-as-directory directory) el-filename))
-         (output-file (concat (file-name-as-directory directory) output-filename))
-         (org-file (el2org-orgify-if-necessary el-file force)))
+(defun el2org-generate-file (el-file tags backend output-file &optional force)
+  (let* ((org-file (el2org-orgify-if-necessary el-file force)))
     (when (and (file-exists-p el-file)
                (file-exists-p org-file))
       (with-temp-buffer
@@ -133,15 +131,11 @@
 (defun el2org-generate-readme ()
   "Generate README.md from current emacs-lisp file."
   (interactive)
-  (let* ((file (buffer-file-name))
-         (filename (when file
-                     (file-name-nondirectory file)))
-         (directory (when file
-                      (file-name-directory file))))
-    (when (and file (string-match-p "\\.el$" file)
-               filename directory)
+  (let* ((file (buffer-file-name)))
+    (when (and (string-match-p "\\.el$" file)
+               (file-exists-p file))
       (el2org-generate-file
-       directory filename '("README")
+       file '("README")
        (if (featurep 'ox-gfm)
            'gfm
          (message "Can't generate README.md with ox-gfm, use ox-md instead!")
