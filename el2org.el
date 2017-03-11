@@ -47,7 +47,8 @@
 
 ;; ** Usage
 
-;; 1. `el2org-orgify-if-necessary' can convert an elisp file to org-file.
+;; 1. `el2org-generate-file' can convert an elisp file to other file format
+;;     which org's exporter support.
 ;; 2. `el2org-generate-readme' can generate README.md from elisp's "Commentary"
 ;;     section.
 ;; 3. `el2org-generate-html' can generate a html file from current elisp file
@@ -71,63 +72,54 @@
   "Minor for el2org."
   nil " el2org" 'el2org-mode-map)
 
-(defun el2org-orgify-if-necessary (el-file &optional force)
-  (let ((org-file (concat (file-name-sans-extension el-file) ".org")))
-    (when (or force
-              (not (file-exists-p org-file))
-              (file-newer-than-file-p el-file org-file))
-      (with-temp-buffer
-        (insert-file-contents el-file)
-        (emacs-lisp-mode)
-        ;; Add "#+END_SRC"
-        (goto-char (point-min))
-        (let ((status t))
-          (while status
-            (thing-at-point--end-of-sexp)
-            (unless (< (point) (point-max))
-              (setq status nil))
-            (insert "\n;; #+END_SRC")))
-        ;; Add "#+BEGIN_SRC"
-        (goto-char (point-max))
-        (let ((status t))
-          (while status
-            (thing-at-point--beginning-of-sexp)
-            (if (> (point) (point-min))
-                (insert ";; #+BEGIN_SRC emacs-lisp\n")
-              (setq status nil))))
-        ;; Delete useless "BEGIN_SRC/END_SRC"
-        (goto-char (point-min))
-        (while (re-search-forward "^;; #[+]END_SRC\n;; #[+]BEGIN_SRC[ ]+emacs-lisp\n" nil t)
-          (replace-match "" nil t))
-        ;; Deal with first line if it prefix with ";;;"
-        (goto-char (point-min))
-        (while (re-search-forward "^;;;[ ]+" (line-end-position) t)
-          (replace-match ";; #+TITLE: " nil t))
-        ;; Indent the buffer, so ";;" and ";;;" in sexp will not be removed.
-        (indent-region (point-min) (point-max))
-        ;; Deal with ";;"
-        (goto-char (point-min))
-        (while (re-search-forward "^;;[ ]" nil t)
-          (replace-match "" nil t))
-        ;; Deal with ";;;"
-        (goto-char (point-min))
-        (while (re-search-forward "^;;;" nil t)
-          (replace-match "# ;;;" nil t))
-        (write-file org-file)))
-    org-file))
-
 (defun el2org-generate-file (el-file tags backend output-file &optional force)
-  (let* ((org-file (el2org-orgify-if-necessary el-file force)))
-    (when (and (file-exists-p el-file)
-               (file-exists-p org-file))
-      (with-temp-buffer
-        (insert-file-contents org-file)
-        (org-mode)
-        (let ((org-export-select-tags tags)
-              (org-export-with-tags nil)
-              (indent-tabs-mode nil)
-              (tab-width 4))
-          (org-export-to-file backend output-file))))))
+  (when (or force
+            (not (file-exists-p output-file))
+            (file-newer-than-file-p el-file output-file))
+    (with-temp-buffer
+      (insert-file-contents el-file)
+      (emacs-lisp-mode)
+      ;; Add "#+END_SRC"
+      (goto-char (point-min))
+      (let ((status t))
+        (while status
+          (thing-at-point--end-of-sexp)
+          (unless (< (point) (point-max))
+            (setq status nil))
+          (insert "\n;; #+END_SRC")))
+      ;; Add "#+BEGIN_SRC"
+      (goto-char (point-max))
+      (let ((status t))
+        (while status
+          (thing-at-point--beginning-of-sexp)
+          (if (> (point) (point-min))
+              (insert ";; #+BEGIN_SRC emacs-lisp\n")
+            (setq status nil))))
+      ;; Delete useless "BEGIN_SRC/END_SRC"
+      (goto-char (point-min))
+      (while (re-search-forward "^;; #[+]END_SRC\n;; #[+]BEGIN_SRC[ ]+emacs-lisp\n" nil t)
+        (replace-match "" nil t))
+      ;; Deal with first line if it prefix with ";;;"
+      (goto-char (point-min))
+      (while (re-search-forward "^;;;[ ]+" (line-end-position) t)
+        (replace-match ";; #+TITLE: " nil t))
+      ;; Indent the buffer, so ";;" and ";;;" in sexp will not be removed.
+      (indent-region (point-min) (point-max))
+      ;; Deal with ";;"
+      (goto-char (point-min))
+      (while (re-search-forward "^;;[ ]" nil t)
+        (replace-match "" nil t))
+      ;; Deal with ";;;"
+      (goto-char (point-min))
+      (while (re-search-forward "^;;;" nil t)
+        (replace-match "# ;;;" nil t))
+      ;; Export
+      (org-mode)
+      (let ((org-export-select-tags tags)
+            (org-export-with-tags nil)
+            (indent-tabs-mode nil)
+            (tab-width 4))
+        (org-export-to-file backend output-file)))))
 
 ;;;###autoload
 (defun el2org-generate-readme ()
