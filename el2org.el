@@ -120,6 +120,10 @@
         (goto-char (point-min))
         (while (re-search-forward "^#[+]END_SRC\n#[+]BEGIN_SRC[ ]+emacs-lisp\n" nil t)
           (replace-match "" nil t))
+        ;; Deal with first line prefix with ";;;"
+        (goto-char (point-min))
+        (while (re-search-forward "^;;;[ ]+" (line-end-position) t)
+          (replace-match "#+TITLE: " nil t))
         ;; Delete ";;;###autoload"
         (goto-char (point-min))
         (while (re-search-forward "^;;;###autoload.*" nil t)
