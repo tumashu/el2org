@@ -50,6 +50,8 @@
 ;; 1. `el2org-orgify-if-necessary' can convert an elisp file to org-file.
 ;; 2. `el2org-generate-readme' can generate README.md from elisp's "Commentary"
 ;;     section.
+;; 3. `el2org-generate-html' can generate a html file from current elisp file
+;;    and browse it.
 
 ;;; Code:
 
@@ -141,6 +143,17 @@
          (message "Can't generate README.md with ox-gfm, use ox-md instead!")
          'md)
        "README.md" t))))
+
+;;;###autoload
+(defun el2org-generate-html ()
+  "Generate html file from current elisp file and browse it."
+  (interactive)
+  (let* ((file (buffer-file-name))
+         (html-file (concat (file-name-sans-extension file) ".html")))
+    (when (and (string-match-p "\\.el$" file)
+               (file-exists-p file))
+      (el2org-generate-file file nil 'html html-file t)
+      (browse-url-default-browser html-file))))
 
 (provide 'el2org)
 
