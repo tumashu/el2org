@@ -72,7 +72,7 @@
   "Minor for el2org."
   nil " el2org" 'el2org-mode-map)
 
-(defun el2org-generate-file (el-file tags backend output-file &optional force)
+(defun el2org-generate-file (el-file tags backend output-file &optional force with-tags)
   (when (or force
             (not (file-exists-p output-file))
             (file-newer-than-file-p el-file output-file))
@@ -116,7 +116,7 @@
       ;; Export
       (org-mode)
       (let ((org-export-select-tags tags)
-            (org-export-with-tags nil)
+            (org-export-with-tags with-tags)
             (indent-tabs-mode nil)
             (tab-width 4))
         (org-export-to-file backend output-file)))))
