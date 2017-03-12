@@ -36,6 +36,8 @@
 
 ;; Note: el2org.el file may be a good example.
 
+;; [[./snapshots/el2org.gif]]
+
 ;; ** Installation
 
 ;; 1. Config melpa source, please read: http://melpa.org/#/getting-started
