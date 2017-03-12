@@ -170,4 +170,10 @@
 
 ;; * Footer
 
+;; #+BEGIN_EXAMPLE
+;; Local Variables:
+;; coding: utf-8-unix
+;; End:
+;; #+END_EXAMPLE
+
 ;;; el2org.el ends here
