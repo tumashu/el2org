@@ -140,7 +140,7 @@
   "Generate README.md from current emacs-lisp file."
   (interactive)
   (let* ((file (buffer-file-name))
-         (readme-file (concat (file-name-sans-extension file) ".md")))
+         (readme-file (concat (file-name-directory file) "README.md")))
     (el2org-generate-file
      file '("README")
      (if (featurep 'ox-gfm)
