@@ -1,6 +1,7 @@
 ;;; el2org.el --- Convert elisp file to org file
 
 ;; * Header
+;; #+BEGIN_EXAMPLE
 ;; Copyright (C) 2017 Feng Shu
 
 ;; Author: Feng Shu  <tumashu AT 163.com>
@@ -20,6 +21,7 @@
 
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
+;; #+END_EXAMPLE
 
 ;;; Commentary:
 
