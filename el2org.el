@@ -105,10 +105,6 @@
           (if (> (point) (point-min))
               (insert ";; #+BEGIN_SRC emacs-lisp\n")
             (setq status nil))))
-      ;; Delete useless "BEGIN_SRC/END_SRC"
-      (goto-char (point-min))
-      (while (re-search-forward "^;; #[+]END_SRC\n;; #[+]BEGIN_SRC[ ]+emacs-lisp\n" nil t)
-        (replace-match "" nil t))
       ;; Deal with first line if it prefix with ";;;"
       (goto-char (point-min))
       (while (re-search-forward "^;;;[ ]+" (line-end-position) t)
@@ -123,6 +119,13 @@
       (goto-char (point-min))
       (while (re-search-forward "^;;;" nil t)
         (replace-match "# ;;;" nil t))
+      ;; Delete useless "BEGIN_SRC/END_SRC"
+      (goto-char (point-min))
+      (while (re-search-forward "^#[+]BEGIN_SRC[ ]+emacs-lisp\n+#[+]END_SRC\n*" nil t)
+        (replace-match "" nil t))
+      (goto-char (point-min))
+      (while (re-search-forward "^#[+]END_SRC\n#[+]BEGIN_SRC[ ]+emacs-lisp\n" nil t)
+        (replace-match "" nil t))
       ;; Export
       (org-mode)
       (let ((org-export-select-tags tags)
