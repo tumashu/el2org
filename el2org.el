@@ -116,6 +116,7 @@
       (let ((status t))
         (while status
           (thing-at-point--end-of-sexp)
+          (end-of-line)
           (unless (< (point) (point-max))
             (setq status nil))
           (insert "\n;; #+END_SRC")))
