@@ -154,7 +154,7 @@
       (insert-file-contents readme-file)
       (goto-char (point-max))
       (insert (format
-               "\n\nConverted from %s by (el2org)[https://github.com/tumashu/el2org]."
+               "\n\nConverted from %s by [el2org](https://github.com/tumashu/el2org)."
                (file-name-nondirectory file)))
       (write-file readme-file))))
 

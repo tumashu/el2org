@@ -46,4 +46,4 @@ Note: el2org.el file may be a good example.
 3.  \`el2org-generate-html' can generate a html file from current elisp file and browse it.
 4.  \`el2org-generate-org' can generate a org file from current elisp file.
 
-Converted from el2org.el by (el2org)[https://github.com/tumashu/el2org].
+Converted from el2org.el by [el2org)[https://github.com/tumashu/el2org].
