@@ -26,7 +26,7 @@
 ;;; Commentary:
 
 ;; * What is el2org                                      :README:
-;; el2org is a simple tool，which can convert a emacs-lisp file to org file.
+;; el2org is a simple tool, which can convert a emacs-lisp file to org file.
 ;; You can write code and document in a elisp file with its help.
 
 ;; #+BEGIN_EXAMPLE
