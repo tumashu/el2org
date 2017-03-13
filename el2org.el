@@ -145,14 +145,14 @@
                      (string-match-p "^;;[; ]" content))
             (warn "el2org can't convert: \"%s\"" content)))
         (forward-line))
-      ;; Deal with ";;"
-      (goto-char (point-min))
-      (while (re-search-forward "^;;[ ]" nil t)
-        (replace-match "" nil t))
       ;; Deal with ";;;"
       (goto-char (point-min))
       (while (re-search-forward "^;;;" nil t)
         (replace-match "# ;;;" nil t))
+      ;; Deal with ";;"
+      (goto-char (point-min))
+      (while (re-search-forward "^;;[ ]*" nil t)
+        (replace-match "" nil t))
       ;; Delete useless "BEGIN_SRC/END_SRC"
       (goto-char (point-min))
       (while (re-search-forward "^#[+]BEGIN_SRC[ ]+emacs-lisp\n+#[+]END_SRC\n*" nil t)
