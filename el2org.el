@@ -143,7 +143,7 @@
                         (line-end-position))))
           (when (and (el2org-in-src-block-p)
                      (string-match-p "^;;[; ]" content))
-            (warn "el2org can't convert: \"%s\"" content)))
+            (warn "el2org convert \"%s\" error at line: \"%s\"" (file-name-nondirectory el-file) content)))
         (forward-line))
       ;; Deal with ";;;"
       (goto-char (point-min))
