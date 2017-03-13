@@ -150,13 +150,10 @@
        (message "Can't generate README.md with ox-gfm, use ox-md instead!")
        'md)
      readme-file t)
-    (with-temp-buffer
-      (insert-file-contents readme-file)
-      (goto-char (point-max))
-      (insert (format
-               "\n\nConverted from %s by [el2org](https://github.com/tumashu/el2org) ."
-               (file-name-nondirectory file)))
-      (write-file readme-file))))
+    (write-region
+     (format "\n\n\nConverted from %s by [el2org](https://github.com/tumashu/el2org) ."
+             (file-name-nondirectory file))
+     nil readme-file 'append)))
 
 ;;;###autoload
 (defun el2org-generate-html ()
