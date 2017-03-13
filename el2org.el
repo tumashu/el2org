@@ -82,6 +82,26 @@
   "Minor for el2org."
   nil " el2org" 'el2org-mode-map)
 
+(defun el2org-in-src-block-p ()
+  "If the current point is in BEGIN/END_SRC block, return t."
+  (let ((begin1 (save-excursion
+                  (if (re-search-backward ";; #[+]BEGIN_SRC emacs-lisp" nil t)
+                      (point)
+                    (point-min))))
+        (begin2 (save-excursion
+                  (if (re-search-backward ";; #[+]END_SRC" nil t)
+                      (point)
+                    (point-min))))
+        (end1 (save-excursion
+                (if (re-search-forward "\n;; #[+]BEGIN_SRC emacs-lisp" nil t)
+                    (point)
+                  (point-max))))
+        (end2 (save-excursion
+                (if (re-search-forward "\n;; #[+]END_SRC" nil t)
+                    (point)
+                  (point-max)))))
+    (and (> begin1 begin2) (> end1 end2))))
+
 (defun el2org-generate-file (el-file tags backend output-file &optional force with-tags)
   (when (and (string-match-p "\\.el$" el-file)
              (file-exists-p el-file)
@@ -113,6 +133,17 @@
         (replace-match ";; #+TITLE: " nil t))
       ;; Indent the buffer, so ";;" and ";;;" in sexp will not be removed.
       (indent-region (point-min) (point-max))
+      ;; check file
+      (goto-char (point-min))
+      (while (not (eobp))
+        (beginning-of-line)
+        (let ((content (buffer-substring
+                        (line-beginning-position)
+                        (line-end-position))))
+          (when (and (el2org-in-src-block-p)
+                     (string-match-p "^;;[; ]" content))
+            (warn "el2org can't convert: \"%s\"" content)))
+        (forward-line))
       ;; Deal with ";;"
       (goto-char (point-min))
       (while (re-search-forward "^;;[ ]" nil t)
