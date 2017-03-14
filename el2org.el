@@ -151,7 +151,7 @@
         (replace-match "# ;;;" nil t))
       ;; Deal with ";;"
       (goto-char (point-min))
-      (while (re-search-forward "^;;[ ]*" nil t)
+      (while (re-search-forward "^;;[ ]?" nil t)
         (replace-match "" nil t))
       ;; Delete useless "BEGIN_SRC/END_SRC"
       (goto-char (point-min))
