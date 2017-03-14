@@ -1,10 +1,10 @@
-- [What is el2org](#org6b0df64)
-  - [Installation](#org481f082)
-  - [Configure](#org9512024)
-  - [Usage](#org84cfe88)
+- [What is el2org](#orgc0f4db4)
+  - [Installation](#org45fcb02)
+  - [Configure](#org01b12a0)
+  - [Usage](#orgf7f30e4)
 
 
-<a id="org6b0df64"></a>
+<a id="orgc0f4db4"></a>
 
 # What is el2org
 
@@ -18,7 +18,7 @@ Note: el2org.el file may be a good example.
 ![img](./snapshots/el2org.gif)
 
 
-<a id="org481f082"></a>
+<a id="org45fcb02"></a>
 
 ## Installation
 
@@ -29,7 +29,7 @@ Note: el2org.el file may be a good example.
     ox-gfm is needed by \`el2org-generate-readme', if ox-gfm can not be found, ox-md will be used as fallback.
 
 
-<a id="org9512024"></a>
+<a id="org01b12a0"></a>
 
 ## Configure
 
@@ -37,7 +37,7 @@ Note: el2org.el file may be a good example.
     (require 'ox-gfm)
 
 
-<a id="org84cfe88"></a>
+<a id="orgf7f30e4"></a>
 
 ## Usage
 

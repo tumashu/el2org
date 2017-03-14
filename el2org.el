@@ -145,6 +145,13 @@
                      (string-match-p "^;;[; ]" content))
             (warn "el2org convert \"%s\" error at line: \"%s\"" (file-name-nondirectory el-file) content)))
         (forward-line))
+      ;; Deal with ";; Local Variables:" and ";; End:"
+      (goto-char (point-min))
+      (while (re-search-forward "^;;+[ ]+Local[ ]+Variables: *" nil t)
+        (replace-match ";; #+BEGIN_EXAMPLE\n;; Local Variables:" nil t))
+      (goto-char (point-min))
+      (while (re-search-forward "^;;+[ ]+End: *" nil t)
+        (replace-match ";; End:\n;; #+END_EXAMPLE" nil t))
       ;; Deal with ";;;"
       (goto-char (point-min))
       (while (re-search-forward "^;;;" nil t)
@@ -208,10 +215,8 @@
 
 ;; * Footer
 
-;; #+BEGIN_EXAMPLE
 ;; Local Variables:
 ;; coding: utf-8-unix
 ;; End:
-;; #+END_EXAMPLE
 
 ;;; el2org.el ends here
