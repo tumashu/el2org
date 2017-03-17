@@ -201,7 +201,7 @@
   (let* ((file (buffer-file-name))
          (html-file (concat (file-name-sans-extension file) "_el2org.html")))
     (el2org-generate-file file nil 'html html-file t)
-    (browse-url-default-browser html-file)))
+    (browse-url html-file)))
 
 ;;;###autoload
 (defun el2org-generate-org ()
