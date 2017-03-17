@@ -7,6 +7,7 @@
 ;; Author: Feng Shu  <tumashu AT 163.com>
 ;; Homepage: https://github.com/tumashu/el2org
 ;; Keywords: convenience
+;; Package-Requires: ((emacs "25.1"))
 ;; Version: 0.10
 
 ;; This program is free software; you can redistribute it and/or modify
