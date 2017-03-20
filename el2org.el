@@ -41,7 +41,7 @@
 
 ;; ** Installation
 
-;; 1. Config melpa source, please read: http://melpa.org/#/getting-started
+;; 1. Config melpa source, please read: [[http://melpa.org/#/getting-started]]
 ;; 2. M-x package-install RET el2org RET
 ;; 3. M-x package-install RET ox-gfm RET
 
@@ -71,7 +71,7 @@
 (require 'lisp-mode)
 (require 'thingatpt)
 (require 'org)
-(require 'ox)
+(require 'ox-org)
 
 (defvar el2org-mode-map
   (let ((keymap (make-sparse-keymap)))
