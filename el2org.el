@@ -202,8 +202,10 @@
   (interactive)
   (let* ((file (or (buffer-file-name)
                    (error "el2org: No emacs-lisp file is found.")))
-         (html-file (concat (file-name-sans-extension file) "_el2org.html")))
-    (el2org-generate-file file nil 'html html-file t)
+         (html-file (concat (file-name-sans-extension file) "_el2org.html"))
+         (tags (when (yes-or-no-p "Convert README tag only? ")
+                 '("README"))))
+    (el2org-generate-file file tags 'html html-file t)
     (browse-url html-file)))
 
 ;;;###autoload
