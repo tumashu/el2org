@@ -181,7 +181,8 @@
 (defun el2org-generate-readme ()
   "Generate README.md from current emacs-lisp file."
   (interactive)
-  (let* ((file (buffer-file-name))
+  (let* ((file (or (buffer-file-name)
+                   (error "el2org: No emacs-lisp file is found.")))
          (readme-file (concat (file-name-directory file) "README.md")))
     (el2org-generate-file
      file '("README")
@@ -199,7 +200,8 @@
 (defun el2org-generate-html ()
   "Generate html file from current elisp file and browse it."
   (interactive)
-  (let* ((file (buffer-file-name))
+  (let* ((file (or (buffer-file-name)
+                   (error "el2org: No emacs-lisp file is found.")))
          (html-file (concat (file-name-sans-extension file) "_el2org.html")))
     (el2org-generate-file file nil 'html html-file t)
     (browse-url html-file)))
@@ -208,7 +210,8 @@
 (defun el2org-generate-org ()
   "Generate org file from current elisp file."
   (interactive)
-  (let* ((file (buffer-file-name))
+  (let* ((file (or (buffer-file-name)
+                   (error "el2org: No emacs-lisp file is found.")))
          (org-file (concat (file-name-sans-extension file) ".org")))
     (el2org-generate-file file nil 'org org-file t t)))
 
