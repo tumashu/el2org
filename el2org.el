@@ -131,8 +131,13 @@
             (setq status nil))))
       ;; Deal with first line if it prefix with ";;;"
       (goto-char (point-min))
-      (while (re-search-forward "^;;;[ ]+" (line-end-position) t)
+      (while (re-search-forward "^;;;.*---[ ]+" (line-end-position) t)
         (replace-match ";; #+TITLE: " nil t))
+      ;; Remove lexical-binding string
+      (goto-char (point-min))
+      (while (re-search-forward "[ ]*-\\*-[ ]+lexical-binding:[ ]+t;[ ]+-\\*-[ ]*"
+                                (line-end-position) t)
+        (replace-match "" nil t))
       ;; Indent the buffer, so ";;" and ";;;" in sexp will not be removed.
       (indent-region (point-min) (point-max))
       ;; Add protect-mask to the beginning of "^;;[;]+" in string.
