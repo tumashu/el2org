@@ -158,7 +158,7 @@
           (when (and (el2org-in-src-block-p)
                      (string-match-p "^;;[; ]" content))
             (goto-char (line-beginning-position))
-            (insert "&&el2org&&")
+            (insert "&&&el2org;;;&&&")
             (goto-char (line-beginning-position))))
         (forward-line))
       ;; Deal with ";; Local Variables:" and ";; End:"
@@ -193,7 +193,7 @@
         (replace-match "" nil t))
       ;; Remove protect-mark.
       (goto-char (point-min))
-      (while (re-search-forward "^&&el2org&&" nil t)
+      (while (re-search-forward "^&&&el2org;;;&&&" nil t)
         (replace-match "" nil t))
       ;; Export
       (org-mode)
