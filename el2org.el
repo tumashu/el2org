@@ -50,10 +50,10 @@
 
 ;; ** Configure
 
-;; #+BEGIN_EXAMPLE
+;; #+BEGIN_SRC emacs-lisp
 ;; (require 'el2org)
 ;; (require 'ox-gfm)
-;; #+END_EXAMPLE
+;; #+END_SRC
 
 ;; ** Usage
 
@@ -112,6 +112,14 @@
     (with-temp-buffer
       (insert-file-contents el-file)
       (emacs-lisp-mode)
+      ;; Protect existing "BEGIN_SRC emacs-lisp"
+      (goto-char (point-min))
+      (while (re-search-forward "#[+]BEGIN_SRC[ ]+emacs-lisp" nil t)
+        (replace-match "&&&el2org-begin-src-emacs-lisp&&&" nil t))
+      ;; Protect existing "#+END_SRC"
+      (goto-char (point-min))
+      (while (re-search-forward "#[+]END_SRC" nil t)
+        (replace-match "&&&el2org-end-src&&&" nil t))
       ;; Add "#+END_SRC"
       (goto-char (point-min))
       (let ((status t))
@@ -164,6 +172,14 @@
       (goto-char (point-min))
       (while (re-search-forward "^;;;" nil t)
         (replace-match "# ;;;" nil t))
+      ;; Un-protect existing "BEGIN_SRC emacs-lisp"
+      (goto-char (point-min))
+      (while (re-search-forward "&&&el2org-begin-src-emacs-lisp&&&" nil t)
+        (replace-match "#+BEGIN_SRC emacs-lisp" nil t))
+      ;; Un-Protect existing "#+END_SRC"
+      (goto-char (point-min))
+      (while (re-search-forward "&&&el2org-end-src&&&" nil t)
+        (replace-match "#+END_SRC" nil t))
       ;; Deal with ";;"
       (goto-char (point-min))
       (while (re-search-forward "^;;[ ]?" nil t)
