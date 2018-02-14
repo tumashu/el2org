@@ -30,10 +30,10 @@
 ;; el2org is a simple tool, which can convert a emacs-lisp file to org file.
 ;; You can write code and document in a elisp file with its help.
 
-;; #+BEGIN_EXAMPLE
+;; #+begin_example
 ;;            (convert to)                    (export to)
 ;; elisp  -----------------> org (internal) --------------> other formats
-;; #+END_EXAMPLE
+;; #+end_example
 
 ;; Note: el2org.el file may be a good example.
 
@@ -50,10 +50,10 @@
 
 ;; ** Configure
 
-;; #+BEGIN_SRC emacs-lisp
+;; #+begin_src emacs-lisp
 ;; (require 'el2org)
 ;; (require 'ox-gfm)
-;; #+END_SRC
+;; #+end_src
 
 ;; ** Usage
 
@@ -84,21 +84,21 @@
   nil " el2org" 'el2org-mode-map)
 
 (defun el2org-in-src-block-p ()
-  "If the current point is in BEGIN/END_SRC block, return t."
+  "If the current point is in BEGIN/end_src block, return t."
   (let ((begin1 (save-excursion
-                  (if (re-search-backward ";; #[+]BEGIN_SRC emacs-lisp" nil t)
+                  (if (re-search-backward ";; #[+]begin_src emacs-lisp" nil t)
                       (point)
                     (point-min))))
         (begin2 (save-excursion
-                  (if (re-search-backward ";; #[+]END_SRC" nil t)
+                  (if (re-search-backward ";; #[+]end_src" nil t)
                       (point)
                     (point-min))))
         (end1 (save-excursion
-                (if (re-search-forward "\n;; #[+]BEGIN_SRC emacs-lisp" nil t)
+                (if (re-search-forward "\n;; #[+]begin_src emacs-lisp" nil t)
                     (point)
                   (point-max))))
         (end2 (save-excursion
-                (if (re-search-forward "\n;; #[+]END_SRC" nil t)
+                (if (re-search-forward "\n;; #[+]end_src" nil t)
                     (point)
                   (point-max)))))
     (and (> begin1 begin2) (> end1 end2))))
@@ -113,15 +113,15 @@
       (insert-file-contents el-file)
       (emacs-lisp-mode)
       (let ((case-fold-search t))
-        ;; Protect existing "BEGIN_SRC emacs-lisp"
+        ;; Protect existing "begin_src emacs-lisp"
         (goto-char (point-min))
-        (while (re-search-forward "#[+]BEGIN_SRC[ ]+emacs-lisp" nil t)
+        (while (re-search-forward "#[+]begin_src[ ]+emacs-lisp" nil t)
           (replace-match "&&&el2org-begin-src-emacs-lisp&&&" nil t))
-        ;; Protect existing "#+END_SRC"
+        ;; Protect existing "#+end_src"
         (goto-char (point-min))
-        (while (re-search-forward "#[+]END_SRC" nil t)
+        (while (re-search-forward "#[+]end_src" nil t)
           (replace-match "&&&el2org-end-src&&&" nil t))
-        ;; Add "#+END_SRC"
+        ;; Add "#+end_src"
         (goto-char (point-min))
         (let ((status t))
           (while status
@@ -129,14 +129,14 @@
             (end-of-line)
             (unless (< (point) (point-max))
               (setq status nil))
-            (insert "\n;; #+END_SRC")))
-        ;; Add "#+BEGIN_SRC"
+            (insert "\n;; #+end_src")))
+        ;; Add "#+begin_src"
         (goto-char (point-max))
         (let ((status t))
           (while status
             (thing-at-point--beginning-of-sexp)
             (if (> (point) (point-min))
-                (insert ";; #+BEGIN_SRC emacs-lisp\n")
+                (insert ";; #+begin_src emacs-lisp\n")
               (setq status nil))))
         ;; Deal with first line if it prefix with ";;;"
         (goto-char (point-min))
@@ -173,24 +173,24 @@
         (goto-char (point-min))
         (while (re-search-forward "^;;;" nil t)
           (replace-match "# ;;;" nil t))
-        ;; Un-protect existing "BEGIN_SRC emacs-lisp"
+        ;; Un-protect existing "begin_src emacs-lisp"
         (goto-char (point-min))
         (while (re-search-forward "&&&el2org-begin-src-emacs-lisp&&&" nil t)
-          (replace-match "#+BEGIN_SRC emacs-lisp" nil t))
-        ;; Un-Protect existing "#+END_SRC"
+          (replace-match "#+begin_src emacs-lisp" nil t))
+        ;; Un-Protect existing "#+end_src"
         (goto-char (point-min))
         (while (re-search-forward "&&&el2org-end-src&&&" nil t)
-          (replace-match "#+END_SRC" nil t))
+          (replace-match "#+end_src" nil t))
         ;; Deal with ";;"
         (goto-char (point-min))
         (while (re-search-forward "^;;[ ]?" nil t)
           (replace-match "" nil t))
-        ;; Delete useless "BEGIN_SRC/END_SRC"
+        ;; Delete useless "begin_src/end_src"
         (goto-char (point-min))
-        (while (re-search-forward "^#[+]BEGIN_SRC[ ]+emacs-lisp\n+#[+]END_SRC\n*" nil t)
+        (while (re-search-forward "^#[+]begin_src[ ]+emacs-lisp\n+#[+]end_src\n*" nil t)
           (replace-match "" nil t))
         (goto-char (point-min))
-        (while (re-search-forward "^#[+]END_SRC\n#[+]BEGIN_SRC[ ]+emacs-lisp\n" nil t)
+        (while (re-search-forward "^#[+]end_src\n#[+]begin_src[ ]+emacs-lisp\n" nil t)
           (replace-match "" nil t))
         ;; Remove protect-mark.
         (goto-char (point-min))

@@ -1,13 +1,13 @@
 
 # &#30446;&#24405;
 
-1.  [What is el2org](#org4319aaa)
-    1.  [Installation](#org85b31e9)
-    2.  [Configure](#orgd4e50b3)
-    3.  [Usage](#orgc6d3e0e)
+1.  [What is el2org](#org6cb4fa8)
+    1.  [Installation](#org2882211)
+    2.  [Configure](#org75af1b0)
+    3.  [Usage](#orgf3605fc)
 
 
-<a id="org4319aaa"></a>
+<a id="org6cb4fa8"></a>
 
 # What is el2org
 
@@ -22,7 +22,7 @@ Note: el2org.el file may be a good example.
 ![img](./snapshots/el2org.gif)
 
 
-<a id="org85b31e9"></a>
+<a id="org2882211"></a>
 
 ## Installation
 
@@ -34,7 +34,7 @@ Note: el2org.el file may be a good example.
     ox-md will be used as fallback.
 
 
-<a id="orgd4e50b3"></a>
+<a id="org75af1b0"></a>
 
 ## Configure
 
@@ -42,7 +42,7 @@ Note: el2org.el file may be a good example.
     (require 'ox-gfm)
 
 
-<a id="orgc6d3e0e"></a>
+<a id="orgf3605fc"></a>
 
 ## Usage
 
