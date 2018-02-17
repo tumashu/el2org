@@ -1,7 +1,7 @@
 ;;; el2org.el --- Convert elisp file to org file
 
 ;; * Header
-;; #+BEGIN_EXAMPLE
+;; #+begin_example
 ;; Copyright (C) 2017 Feng Shu
 
 ;; Author: Feng Shu  <tumashu AT 163.com>
@@ -22,7 +22,7 @@
 
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
-;; #+END_EXAMPLE
+;; #+end_example
 
 ;;; Commentary:
 
@@ -155,10 +155,10 @@
         ;; Deal with ";; Local Variables:" and ";; End:"
         (goto-char (point-min))
         (while (re-search-forward "^;;+[ ]+Local[ ]+Variables: *" nil t)
-          (replace-match ";; #+BEGIN_EXAMPLE\n;; Local Variables:" nil t))
+          (replace-match ";; #+begin_example\n;; Local Variables:" nil t))
         (goto-char (point-min))
         (while (re-search-forward "^;;+[ ]+End: *" nil t)
-          (replace-match ";; End:\n;; #+END_EXAMPLE" nil t))
+          (replace-match ";; End:\n;; #+end_example" nil t))
         ;; Deal with ";;;"
         (goto-char (point-min))
         (while (re-search-forward "^;;;" nil t)
