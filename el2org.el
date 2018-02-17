@@ -73,16 +73,6 @@
 (require 'org)
 (require 'ox-org)
 
-(defvar el2org-mode-map
-  (let ((keymap (make-sparse-keymap)))
-    (define-key keymap "\C-c.." 'el2org-generate-readme)
-    keymap)
-  "Keymap for `el2org-mode'")
-
-(define-minor-mode el2org-mode
-  "Minor for el2org."
-  nil " el2org" 'el2org-mode-map)
-
 (defun el2org-in-src-block-p ()
   "If the current point is in BEGIN/end_src block, return t."
   (let ((begin1 (save-excursion
