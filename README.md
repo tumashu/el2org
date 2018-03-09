@@ -1,13 +1,15 @@
+Converted from el2org.el by [el2org](https://github.com/tumashu/el2org), do not edit it by hand!!!
+
 
 # &#30446;&#24405;
 
-1.  [What is el2org](#orgaf95cf9)
-    1.  [Installation](#org2d5ab4b)
-    2.  [Configure](#org1b793a5)
-    3.  [Usage](#org8e532db)
+1.  [What is el2org](#orgc7e3e1d)
+    1.  [Installation](#orgc705405)
+    2.  [Configure](#org34675a4)
+    3.  [Usage](#orgc20816e)
 
 
-<a id="orgaf95cf9"></a>
+<a id="orgc7e3e1d"></a>
 
 # What is el2org
 
@@ -22,7 +24,7 @@ Note: el2org.el file may be a good example.
 ![img](./snapshots/el2org.gif)
 
 
-<a id="org2d5ab4b"></a>
+<a id="orgc705405"></a>
 
 ## Installation
 
@@ -34,7 +36,7 @@ Note: el2org.el file may be a good example.
     ox-md will be used as fallback.
 
 
-<a id="org1b793a5"></a>
+<a id="org34675a4"></a>
 
 ## Configure
 
@@ -42,7 +44,7 @@ Note: el2org.el file may be a good example.
     (require 'ox-gfm)
 
 
-<a id="org8e532db"></a>
+<a id="orgc20816e"></a>
 
 ## Usage
 
@@ -53,6 +55,3 @@ Note: el2org.el file may be a good example.
 3.  \`el2org-generate-html' can generate a html file from current elisp file
     and browse it.
 4.  \`el2org-generate-org' can generate a org file from current elisp file.
-
-
-Converted from el2org.el by [el2org](https://github.com/tumashu/el2org).

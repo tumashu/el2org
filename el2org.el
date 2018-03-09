@@ -239,13 +239,14 @@ If FILE-EXT is nil deduce it from BACKEND."
       (setq backend 'md))
     (el2org-generate-file file '("README") backend readme-file t)
     (when el2org-add-notification
-      (write-region
-       (format "\n\nConverted from %s by %s.\n"
-	           (file-name-nondirectory file)
-	           (if (eq backend 'org)
-		           link-string
-		         (org-md-link link link-desc nil)))
-       nil readme-file 'append))))
+      (with-temp-buffer
+        (insert (format "Converted from %s by %s, do not edit it by hand!!!\n\n"
+	                    (file-name-nondirectory file)
+	                    (if (eq backend 'org)
+		                    link-string
+		                  (org-md-link link link-desc nil))))
+        (insert-file-contents readme-file)
+        (write-file readme-file)))))
 
 ;;;###autoload
 (defun el2org-generate-html ()
