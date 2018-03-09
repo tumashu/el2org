@@ -240,7 +240,7 @@ If FILE-EXT is nil deduce it from BACKEND."
     (el2org-generate-file file '("README") backend readme-file t)
     (when el2org-add-notification
       (with-temp-buffer
-        (insert (format "Converted from %s by %s, do not edit it by hand!!!\n\n"
+        (insert (format "Note: this file is converted from %s by %s, please do not edit it by hand!!!\n\n"
 	                    (file-name-nondirectory file)
 	                    (if (eq backend 'org)
 		                    link-string
