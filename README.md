@@ -1,15 +1,15 @@
-Converted from el2org.el by [el2org](https://github.com/tumashu/el2org), do not edit it by hand!!!
+Note: this file is converted from el2org.el by [el2org](https://github.com/tumashu/el2org), please do not edit it by hand!!!
 
 
 # &#30446;&#24405;
 
-1.  [What is el2org](#org8e4356a)
-    1.  [Installation](#orgcea7d47)
-    2.  [Configure](#org87e5d5d)
-    3.  [Usage](#orgda3e7ff)
+1.  [What is el2org](#org24a344d)
+    1.  [Installation](#org9b67cd2)
+    2.  [Configure](#org91f7e3c)
+    3.  [Usage](#org4767128)
 
 
-<a id="org8e4356a"></a>
+<a id="org24a344d"></a>
 
 # What is el2org
 
@@ -24,7 +24,7 @@ Note: el2org.el file may be a good example.
 ![img](./snapshots/el2org.gif)
 
 
-<a id="orgcea7d47"></a>
+<a id="org9b67cd2"></a>
 
 ## Installation
 
@@ -36,7 +36,7 @@ Note: el2org.el file may be a good example.
     ox-md will be used as fallback.
 
 
-<a id="org87e5d5d"></a>
+<a id="org91f7e3c"></a>
 
 ## Configure
 
@@ -44,7 +44,7 @@ Note: el2org.el file may be a good example.
     (require 'ox-gfm)
 
 
-<a id="orgda3e7ff"></a>
+<a id="org4767128"></a>
 
 ## Usage
 
