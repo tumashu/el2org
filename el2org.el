@@ -92,6 +92,15 @@
   :type '(choice (const :tag "On" t)
                  (const :tag "Off" nil)))
 
+(defvar el2org-backend-settings
+  '((gfm
+     :filename-extension "md")
+    (md
+     :filename-extension "md")
+    (org
+     :filename-extension "org"))
+  "The settings of el2org backends.")
+
 (defun el2org-in-src-block-p ()
   "If the current point is in BEGIN/end_src block, return t."
   (let ((begin1 (save-excursion
@@ -222,13 +231,13 @@ If BACKEND is set then use-it else use `el2org-default-backend'.
 If FILE-EXT is nil deduce it from BACKEND."
   (interactive)
   (let* ((backend (or backend el2org-default-backend))
-         (file-ext (or file-ext
-                       (if (eq backend 'org)
-                           ".org"
-                         ".md")))
+         (file-ext
+          (or file-ext
+              (plist-get (cdr (assq backend el2org-backend-settings))
+                         :filename-extension)))
          (file (or (buffer-file-name)
                    (error "el2org: No emacs-lisp file is found.")))
-         (readme-file (concat (file-name-directory file) "README" file-ext))
+         (readme-file (concat (file-name-directory file) "README" "." file-ext))
          (link-desc "el2org")
          (link-string
           (org-make-link-string "https://github.com/tumashu/el2org" link-desc))
