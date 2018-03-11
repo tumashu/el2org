@@ -95,6 +95,8 @@
 
 (defvar el2org-backend-settings
   `((gfm
+     :require ox-gfm
+     :fallback md
      :filename-extension "md"
      :notification
      ,(concat "Note: this file is auto converted from %el-file by "
@@ -236,6 +238,16 @@
         (org-export-to-file backend output-file))
       output-file)))
 
+(defun el2org--get-valid-backend (backend)
+  (let* ((setting (cdr (assq backend el2org-backend-settings)))
+         (feature (plist-get setting :require))
+         (fallback (plist-get setting :fallback)))
+    (if (or (not feature)
+            (and feature (featurep feature)))
+        backend
+      (message "el2org: backend '%s' is invalid, fallback to '%s'." backend fallback)
+      fallback)))
+
 ;;;###autoload
 (defun el2org-generate-readme (&optional backend file-ext)
   "Generate README from current emacs-lisp file.
@@ -243,7 +255,8 @@
 If BACKEND is set then use-it else use `el2org-default-backend'.
 If FILE-EXT is nil deduce it from BACKEND."
   (interactive)
-  (let* ((backend (or backend el2org-default-backend))
+  (let* ((backend (el2org--get-valid-backend
+                   (or backend el2org-default-backend)))
          (file-ext
           (or file-ext
               (plist-get (cdr (assq backend el2org-backend-settings))
@@ -257,10 +270,6 @@ If FILE-EXT is nil deduce it from BACKEND."
                         (or (plist-get (cdr (assq 'md el2org-backend-settings))
                                        :notification)
                             ""))))
-    (when (and (eq backend 'gfm)
-               (not (featurep 'ox-gfm)))
-      (message "el2org: can't generate README.md with ox-gfm, use ox-md instead!")
-      (setq backend 'md))
     (el2org-generate-file el-file '("README") backend readme-file t)
     (when el2org-add-notification
       (with-temp-buffer
