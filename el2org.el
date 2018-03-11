@@ -248,12 +248,12 @@ If FILE-EXT is nil deduce it from BACKEND."
           (or file-ext
               (plist-get (cdr (assq backend el2org-backend-settings))
                          :filename-extension)))
-         (file (or (buffer-file-name)
-                   (error "el2org: No emacs-lisp file is found.")))
-         (readme-file (concat (file-name-directory file) "README" "." file-ext))
+         (el-file (or (buffer-file-name)
+                      (error "el2org: No emacs-lisp file is found.")))
+         (readme-file (concat (file-name-directory el-file) "README" "." file-ext))
          (notification (replace-regexp-in-string
                         "%el-file"
-                        (file-name-nondirectory file)
+                        (file-name-nondirectory el-file)
                         (or (plist-get (cdr (assq 'md el2org-backend-settings))
                                        :notification)
                             ""))))
@@ -261,7 +261,7 @@ If FILE-EXT is nil deduce it from BACKEND."
                (not (featurep 'ox-gfm)))
       (message "el2org: can't generate README.md with ox-gfm, use ox-md instead!")
       (setq backend 'md))
-    (el2org-generate-file file '("README") backend readme-file t)
+    (el2org-generate-file el-file '("README") backend readme-file t)
     (when el2org-add-notification
       (with-temp-buffer
         (when (memq el2org-add-notification '(begin t))
