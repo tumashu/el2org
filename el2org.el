@@ -99,19 +99,19 @@
      :fallback md
      :filename-extension "md"
      :notification
-     ,(concat "Note: this file is auto converted from %el-file by "
+     ,(concat "Note: this file is auto converted from %elisp-file by "
               "[el2org](https://github.com/tumashu/el2org), "
               "please do not edit it by hand!!!"))
     (md
      :filename-extension "md"
      :notification
-     ,(concat "Note: this file is auto converted from %el-file by "
+     ,(concat "Note: this file is auto converted from %elisp-file by "
               "[el2org](https://github.com/tumashu/el2org), "
               "please do not edit it by hand!!!"))
     (org
      :filename-extension "org"
      :notification
-     ,(concat "Note: this file is auto converted from %el-file by "
+     ,(concat "Note: this file is auto converted from %elisp-file by "
               "[[https://github.com/tumashu/el2org][el2org]], "
               "please do not edit it by hand!!!")))
   "The settings of el2org backends.")
@@ -265,7 +265,7 @@ If FILE-EXT is nil deduce it from BACKEND."
                       (error "el2org: No emacs-lisp file is found.")))
          (readme-file (concat (file-name-directory el-file) "README" "." file-ext))
          (notification (replace-regexp-in-string
-                        "%el-file"
+                        "%elisp-file"
                         (file-name-nondirectory el-file)
                         (or (plist-get (cdr (assq 'md el2org-backend-settings))
                                        :notification)
