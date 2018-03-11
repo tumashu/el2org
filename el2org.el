@@ -273,14 +273,14 @@ If FILE-EXT is nil deduce it from BACKEND."
     (el2org-generate-file el-file '("README") backend readme-file t)
     (when el2org-add-notification
       (with-temp-buffer
-        (when (memq el2org-add-notification '(begin t))
+        (insert-file-contents readme-file)
+        (if (eq el2org-add-notification 'end)
+            (progn (goto-char (point-max))
+                   (insert "\n\n")
+                   (insert notification))
+          (goto-char (point-min))
           (insert notification)
           (insert "\n\n"))
-        (insert-file-contents readme-file)
-        (goto-char (point-max))
-        (when (eq el2org-add-notification 'end)
-          (insert "\n\n")
-          (insert notification))
         (write-file readme-file)))))
 
 ;;;###autoload
