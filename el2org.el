@@ -2,9 +2,9 @@
 
 ;; * Header
 ;; #+begin_example
-;; Copyright (C) 2017 Feng Shu
+;; Copyright (C) 2017-2019 Feng Shu
 
-;; Author: Feng Shu  <tumashu AT 163.com>
+;; Author: Feng Shu  <tumashu@163.com>
 ;; Homepage: https://github.com/tumashu/el2org
 ;; Keywords: convenience
 ;; Package-Requires: ((emacs "25.1"))
