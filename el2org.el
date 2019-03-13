@@ -217,7 +217,8 @@
         ;; Deal with ";;"
         (goto-char (point-min))
         (while (re-search-forward "^;;[ ]?" nil t)
-          (replace-match "" nil t))
+          (replace-match "" nil t)
+          (goto-char (line-end-position)))
         ;; Delete useless "begin_src/end_src"
         (goto-char (point-min))
         (while (re-search-forward "^#[+]begin_src[ ]+emacs-lisp\n+#[+]end_src\n*" nil t)
