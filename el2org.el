@@ -146,7 +146,7 @@
       (insert-file-contents el-file)
       (emacs-lisp-mode)
       (let ((case-fold-search t)
-            (buffer-end-of-newlineP
+            (buffer-end-of-newline-p
              (save-excursion (goto-char (point-max))
                              (forward-line 0)
                              (if (string-match
@@ -171,7 +171,7 @@
             (if (< (point) (point-max))
                 (insert "\n;; #+end_src")
               (setq status nil)
-              (unless buffer-end-of-newlineP
+              (unless buffer-end-of-newline-p
                 (insert "\n;; #+end_src")))))
         ;; Add "#+begin_src"
         (goto-char (point-max))
