@@ -145,7 +145,15 @@
     (with-temp-buffer
       (insert-file-contents el-file)
       (emacs-lisp-mode)
-      (let ((case-fold-search t))
+      (let ((case-fold-search t)
+            (buffer-end-of-newlineP
+             (save-excursion (goto-char (point-max))
+                             (forward-line 0)
+                             (if (string-match
+                                  "^$"
+                                  (buffer-substring-no-properties (point) (point-max)))
+                                 t
+                               nil))))
         ;; Protect existing "begin_src emacs-lisp"
         (goto-char (point-min))
         (while (re-search-forward "#[+]begin_src[ ]+emacs-lisp" nil t)
@@ -160,9 +168,11 @@
           (while status
             (thing-at-point--end-of-sexp)
             (end-of-line)
-            (unless (< (point) (point-max))
-              (setq status nil))
-            (insert "\n;; #+end_src")))
+            (if (< (point) (point-max))
+                (insert "\n;; #+end_src")
+              (setq status nil)
+              (unless buffer-end-of-newlineP
+                (insert "\n;; #+end_src")))))
         ;; Add "#+begin_src"
         (goto-char (point-max))
         (let ((status t))
