@@ -1,4 +1,4 @@
-;;; el2org.el --- Convert elisp file to org file
+;;; el2org.el --- Convert elisp file to org file   -*- lexical-binding: t; -*-
 
 ;; * Header
 ;; #+begin_example
